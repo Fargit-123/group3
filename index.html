@@ -3,48 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Form Kontak</title>
+  <title>Form Pallet</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #f3f4f6;
+      background: #f0f4f8;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      margin: 0;
     }
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    .form-card {
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
       width: 100%;
-      max-width: 450px;
+      max-width: 480px;
     }
     h2 {
       text-align: center;
-      margin-bottom: 25px;
-      color: #111827;
+      color: #1f2937;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #374151;
     }
     input, textarea {
       width: 100%;
       padding: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       border: 1px solid #d1d5db;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    input:focus, textarea:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+    input[readonly] {
+      background-color: #f9fafb;
+      color: #6b7280;
     }
     button {
       width: 100%;
+      padding: 12px;
       background-color: #3b82f6;
       color: white;
-      padding: 12px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #2563eb;
@@ -52,15 +68,29 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Hubungi Kami</h2>
+  <div class="form-card">
+    <h2>Form Pallet</h2>
     <form action="#" method="POST">
-      <input type="text" name="nama" placeholder="Nama Anda" required />
-      <input type="email" name="email" placeholder="Email Anda" required />
-      <textarea name="pesan" placeholder="Pesan Anda" rows="5" required></textarea>
-      <button type="submit">Kirim</button>
+      <label for="nama">Nama Pengisi</label>
+      <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required />
+
+      <label for="tanggal">Tanggal Input</label>
+      <input type="date" id="tanggal" name="tanggal" required />
+
+      <label for="kode">Kode Pallet</label>
+      <input type="text" id="kode" name="kode" value="Pallet 001" readonly />
+
+      <label for="isi">Isi Pallet</label>
+      <textarea id="isi" name="isi" placeholder="Masukkan isi pallet di sini..." rows="4" required></textarea>
+
+      <button type="submit">Kirim Data</button>
     </form>
   </div>
+
+  <script>
+    // Auto set tanggal ke hari ini
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('tanggal').value = today;
+  </script>
 </body>
 </html>
-
