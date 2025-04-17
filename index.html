@@ -21,6 +21,7 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
       width: 100%;
       max-width: 480px;
+      position: relative;
     }
     h2 {
       text-align: center;
@@ -65,12 +66,28 @@
     button:hover {
       background-color: #2563eb;
     }
+    .notification {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d1fae5;
+      color: #065f46;
+      border: 1px solid #10b981;
+      border-radius: 10px;
+      font-weight: 600;
+      animation: fadeIn 0.6s ease-in-out;
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
   <div class="form-card">
     <h2>Form Pallet</h2>
-    <form action="#" method="POST">
+    <form id="palletForm">
       <label for="nama">Nama Pengisi</label>
       <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required />
 
@@ -85,12 +102,35 @@
 
       <button type="submit">Kirim Data</button>
     </form>
+
+    <div class="notification" id="notification">
+      ✅ Data berhasil dikirim!
+    </div>
   </div>
 
   <script>
-    // Auto set tanggal ke hari ini
+    // Set tanggal ke hari ini
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('tanggal').value = today;
+
+    // Tangani submit form
+    const form = document.getElementById('palletForm');
+    const notification = document.getElementById('notification');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Biar ga reload
+      notification.style.display = 'block';
+
+      // Reset form setelah submit
+      form.reset();
+      document.getElementById('kode').value = 'Pallet 001';
+      document.getElementById('tanggal').value = today;
+
+      // Sembunyikan notifikasi setelah 4 detik
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 4000);
+    });
   </script>
 </body>
 </html>
